@@ -1,0 +1,19 @@
+psycopg2
+boto3
+django-cors-headers
+django-redis
+django_storages
+google-cloud-storage
+redis
+python-dotenv
+environ
+djangorestframework-simplejwt
+djangorestframework
+python-dateutil
+django-environ
+pillow
+-e .
+
+# for the tests
+pytest
+pytest-django
