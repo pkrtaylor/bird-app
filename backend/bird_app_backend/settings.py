@@ -114,10 +114,10 @@ WSGI_APPLICATION = 'bird_app_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'birdbase',
-        'USER': 'postgres',
-        'PASSWORD': 'Strawhat98$',
-        'HOST': '34.30.109.130',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
         'PORT': '5432',
 
 
