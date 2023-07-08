@@ -114,10 +114,12 @@ WSGI_APPLICATION = 'bird_app_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'merge_test',
-        'PASSWORD': 'zoro3',
+        'NAME': 'birdbase',
         'USER': 'postgres',
-        'HOST': 'localhost'
+        'PASSWORD': 'Strawhat98$',
+        'HOST': '34.30.109.130',
+        'PORT': '5432',
+
 
     }
 }

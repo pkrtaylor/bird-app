@@ -19,6 +19,7 @@ import ast
 import redis
 from django.db import Error
 from django.db.models import F, CharField, Value
+import os
 
 
 # Create your views here.
@@ -119,8 +120,15 @@ class SendTweet(APIView):
 
             redisTweetObjectString = str(redisTweetObject)
 
+            # redisClient = redis.StrictRedis(
+            #     host="localhost", port=6379, charset="utf-8", decode_responses=True)
+
             redisClient = redis.StrictRedis(
-                host="localhost", port=6379, charset="utf-8", decode_responses=True)
+                host="redis-12081.c253.us-central1-1.gce.cloud.redislabs.com",
+                port=12081, charset="utf-8",
+                username="default",
+                password=str(os.getenv('REDIS_CLIENT_PASSWORD')),
+                decode_responses=True)
 
             redisClient.lpush(redisKey, redisTweetObjectString)
 
@@ -151,7 +159,7 @@ class SendTweet(APIView):
             #     print('fail')
             data = redisClient.lrange(redisKey, 0, -1)
             redisClient.close()
-            print(2.5)
+            print(data)
             unstring_data = []
             for x in data:
                 unstring_data.append(ast.literal_eval(x))
@@ -251,7 +259,11 @@ class RetrieveHomeTL(APIView):
 
                 homeTL_key = "HomeTL:" + user['username']
                 redisClient = redis.StrictRedis(
-                    host="localhost", port=6379, charset="utf-8", decode_responses=True)
+                    host="redis-12081.c253.us-central1-1.gce.cloud.redislabs.com",
+                    port=12081, charset="utf-8",
+                    username="default",
+                    password=str(os.getenv('REDIS_CLIENT_PASSWORD')),
+                    decode_responses=True)
 
                 data = redisClient.lrange(homeTL_key, 0, -1)
 
@@ -284,7 +296,11 @@ class FlushRedis(APIView):
 
     def post(self, request):
         redisClient = redis.StrictRedis(
-            host="localhost", port=6379, charset="utf-8", decode_responses=True)
+            host="redis-12081.c253.us-central1-1.gce.cloud.redislabs.com",
+            port=12081, charset="utf-8",
+            username="default",
+            password=str(os.getenv('REDIS_CLIENT_PASSWORD')),
+            decode_responses=True)
         redisClient.flushall()
         redisClient.close()
         return Response(
