@@ -1,0 +1,14 @@
+{
+    "builds": [
+        {
+            "src": "bird_app_backend/wsgi.py",
+            "use": "@vercel/python"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "bird_app_backend/wsgi.py"
+        }
+    ]
+}

@@ -1,3 +1,4 @@
+django
 psycopg2
 boto3
 django-cors-headers
@@ -12,7 +13,7 @@ djangorestframework
 python-dateutil
 django-environ
 pillow
--e .
+
 
 # for the tests
 pytest
