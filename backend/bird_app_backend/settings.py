@@ -14,8 +14,12 @@ import os
 import environ
 from pathlib import Path
 from datetime import timedelta
-from dotenv import load_dotenv
-load_dotenv()
+from dotenv import load_dotenv, find_dotenv
+import json
+
+
+# from dotenv import load_dotenv
+# load_dotenv()
 
 # we are just instantiating an Env object
 env = environ.Env(
@@ -23,7 +27,7 @@ env = environ.Env(
     DEBUG=(bool, False)
 )
 
-
+# environ.Env.read_env(env_file='.env.local')
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -45,6 +49,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'tweets',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,8 +60,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework_simplejwt.token_blacklist',
     'account',
-    'tweets',
-    'relationship'
+    'relationship',
+
 ]
 
 # tells django to use the db modelwe want to create as the default one
@@ -124,7 +129,19 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'birdbase',
+#         'USER': 'postgres',
+#         'PASSWORD': 'Strawhat98$',
+#         'HOST': '34.30.109.130',
+#         'PORT': '5432',
 
+
+#     }
+
+# }
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -214,11 +231,48 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
 # AWS_S3_REGION_NAME = env('AWS_S3_REGION_NAME')
 
-# here we are adding the google cloud storag set up
-GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    os.path.join(BASE_DIR, 'credential.json')
-)
+# here we are adding the google cloud storage set up
+# def create_keyfile_dict():
+#     variables_keys = {
+#         "type": os.getenv("TYPE"),
+#         "project_id": os.getenv("PROJECT_ID"),
+#         "private_key_id": os.getenv("PRIVATE_KEY_ID"),
+#         "private_key": os.getenv("PRIVATE_KEY"),
+#         "client_email": os.getenv("CLIENT_EMAIL"),
+#         "client_id": os.getenv("CLIENT_ID"),
+#         "auth_uri": os.getenv("AUTH_URI"),
+#         "token_uri": os.getenv("TOKEN_URI"),
+#         "auth_provider_x509_cert_url": os.getenv("AUTH_PROVIDER_X509_CERT_URL"),
+#         "client_x509_cert_url": os.getenv("CLIENT_X509_CERT_URL"),
+#         "universe_domain": "googleapis.com"
+#     }
+#     return variables_keys
+
+variables_keys = {
+    "type": os.getenv("TYPE"),
+    "project_id": os.getenv("PROJECT_ID"),
+    "private_key_id": os.getenv("PRIVATE_KEY_ID"),
+    "private_key": str(os.getenv("PRIVATE_KEY")).replace("\\n", "\n"),
+    "client_email": os.getenv("CLIENT_EMAIL"),
+    "client_id": os.getenv("CLIENT_ID"),
+    "auth_uri": os.getenv("AUTH_URI"),
+    "token_uri": os.getenv("TOKEN_URI"),
+    "auth_provider_x509_cert_url": os.getenv("AUTH_PROVIDER_X509_CERT_URL"),
+    "client_x509_cert_url": os.getenv("CLIENT_X509_CERT_URL"),
+    "universe_domain": "googleapis.com"
+}
+
+
 # configuration for media file storing and reriving media file from gcloud
+# GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+#     os.path.join(BASE_DIR, 'creds.json'))
+
+
+# print(variables_keys)
+# print(json_object)
+GS_CREDENTIALS = service_account.Credentials.from_service_account_info(
+    variables_keys)
+
 DEFAULT_FILE_STORAGE = 'bird_app_backend.gcloud.GoogleCloudMediaFileStorage'
 GS_PROJECT_ID = 'glowing-vehicle-390215'
 GS_BUCKET_NAME = 'bird-media-bucket'
