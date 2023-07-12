@@ -215,9 +215,33 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # AWS_S3_REGION_NAME = env('AWS_S3_REGION_NAME')
 
 # here we are adding the google cloud storag set up
-GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    os.path.join(BASE_DIR, 'credential.json')
-)
+variables_keys = {
+    "type": os.getenv("TYPE"),
+    "project_id": os.getenv("PROJECT_ID"),
+    "private_key_id": os.getenv("PRIVATE_KEY_ID"),
+    "private_key": str(os.getenv("PRIVATE_KEY")).replace("\\n", "\n"),
+    "client_email": os.getenv("CLIENT_EMAIL"),
+    "client_id": os.getenv("CLIENT_ID"),
+    "auth_uri": os.getenv("AUTH_URI"),
+    "token_uri": os.getenv("TOKEN_URI"),
+    "auth_provider_x509_cert_url": os.getenv("AUTH_PROVIDER_X509_CERT_URL"),
+    "client_x509_cert_url": os.getenv("CLIENT_X509_CERT_URL"),
+    "universe_domain": "googleapis.com"
+}
+
+
+# configuration for media file storing and reriving media file from gcloud
+# GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+#     os.path.join(BASE_DIR, 'creds.json'))
+
+
+# print(variables_keys)
+# print(json_object)
+GS_CREDENTIALS = service_account.Credentials.from_service_account_info(
+    variables_keys)
+# GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+#     os.path.join(BASE_DIR, 'credential.json')
+# )
 # configuration for media file storing and reriving media file from gcloud
 DEFAULT_FILE_STORAGE = 'bird_app_backend.gcloud.GoogleCloudMediaFileStorage'
 GS_PROJECT_ID = 'glowing-vehicle-390215'
