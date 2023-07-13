@@ -39,8 +39,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['bird-app-snowy.vercel.app',
-                 'bird-60fqcaww5-pkrtaylor.vercel.app']
+ALLOWED_HOSTS = ['.vercel.app', 'bird-app-snowy.vercel.app']
 
 
 # Application definition
