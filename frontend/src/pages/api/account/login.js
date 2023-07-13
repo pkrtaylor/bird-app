@@ -10,55 +10,53 @@ import cookie from 'cookie'
 import { API_URL } from '../../../config'
 
 
-export default async (req, res) =>{
-    
-    if(req.method === 'POST')
-    {
-        const {username, password} = req.body;
+export default async (req, res) => {
+
+    if (req.method === 'POST') {
+        const { username, password } = req.body;
         //this turns the info back into json data
         const body = JSON.stringify({
             username,
             password
         })
-        
+
         try {
             //api request to django
             const apiRes = await fetch(`${API_URL}/api/token/`, {
                 method: 'POST',
                 headers: {
-                    'Accept' : 'application/json',
-                    'Content-Type' : 'application/json'
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 },
 
                 body: body
-                
+
             });
-            
+
             //apiRes returns data but we want the json version of it so we can access the data property
             const data = await apiRes.json();
-            if(apiRes.status === 200)
-            {
+            if (apiRes.status === 200) {
                 res.setHeader('Set-Cookie', [
                     cookie.serialize(
                         //here we serialize the access token 
                         //we get the access value from data 
                         //here on nextjs backend api when we parse this cookie we get the access token through the 'access' name below 
                         'access', data.access, {
-                            httpOnly : true, 
-                            secure : process.env.NODE_ENV  !== 'development',
-                            maxAge : 60 * 30,
-                            sameSite : 'strict',
-                            path: '/api/'
-                        }
+                        httpOnly: true,
+                        secure: process.env.NODE_ENV !== 'development', //if secure is false we dont need https 
+                        maxAge: 60 * 30,
+                        sameSite: 'strict',
+                        path: '/api/'
+                    }
                     ),
                     cookie.serialize(
                         'refresh', data.refresh, {
-                            httpOnly : true, 
-                            secure : process.env.NODE_ENV  !== 'development',
-                            maxAge : 60 * 60 * 24,
-                            sameSite : 'strict',
-                            path: '/api/'
-                        }
+                        httpOnly: true,
+                        secure: process.env.NODE_ENV !== 'development',
+                        maxAge: 60 * 60 * 24,
+                        sameSite: 'strict',
+                        path: '/api/'
+                    }
                     ),
 
                 ]);
@@ -66,20 +64,20 @@ export default async (req, res) =>{
                 return res.status(200).json({
                     success: 'Logged in successfully'
                 })
-            }else{
+            } else {
                 return res.status(apiRes.status).json({
-                    error : 'Authentication failed'
+                    error: 'Authentication failed'
                 })
             }
         } catch (error) {
             return res.status(500).json({
-                error : 'Something went wrong when authenticating'
+                error: 'Something went wrong when authenticating'
             })
         }
     }
-    else{
+    else {
         res.setHeader('Allow', ['POST'])
-        return res.status(405).json({error : `Method ${req.method} is not allowed`})
+        return res.status(405).json({ error: `Method ${req.method} is not allowed` })
     }
 
 
