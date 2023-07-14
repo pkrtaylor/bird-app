@@ -190,7 +190,8 @@ SIMPLE_JWT = {
 
 CORS_ALLOWED_ORIGINS = [
 
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'https://birdapp-inky.vercel.app'
 ]
 
 # Default primary key field type
