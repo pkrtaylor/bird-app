@@ -17,29 +17,29 @@ const Feed = () => {
   const dispatch = useDispatch();
   const tweets = useSelector(state => state.tweets.homeTL)
   console.log(tweets.tweets)
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(load_homeTL())
-  },[])
+  }, [])
 
   return (
     <div className="text-white flex-grow border-l border-r 
     border-gray-700 max-w-2xl sm:ml-[73px] xl:ml-[370px]">
-    <div className="text-[#d9d9d9] flex items-center sm:justify-between py-2 px-3 sticky top-0 z-50 bg-black border-b border-gray-700">
-    <h2 className="text-lg sm:text-xl font-bold">Home</h2>
-    <div className="hoverAnimation w-9 h-9 flex items-center justify-center
+      <div className="text-[#d9d9d9] flex items-center sm:justify-between py-2 px-3 sticky top-0 z-50 bg-black border-b border-gray-700">
+        <h2 className="text-lg sm:text-xl font-bold">Home</h2>
+        <div className="hoverAnimation w-9 h-9 flex items-center justify-center
     xl:px-0 ml-auto" >
-        <SparklesIcon className="text-white h-5"/>
-    </div>
-    
-    </div>
-    <Input/>
-    <div className="pb-72">
-      {
-        tweets.tweets?.map((tweet) =>(
-          <Post key={tweet.tweet_id} id={tweet.tweet_id} text={tweet.text} media={tweet.media} username={tweet.username}/>
-        ))
-      }
-    </div>
+          <SparklesIcon className="text-white h-5" />
+        </div>
+
+      </div>
+      <Input />
+      <div className="pb-72">
+        {
+          tweets.tweets?.map((tweet) => (
+            <Post key={tweet.tweet_id} id={tweet.tweet_id} text={tweet.text} media={tweet.media} username={tweet.username} />
+          ))
+        }
+      </div>
     </div>
   )
 }

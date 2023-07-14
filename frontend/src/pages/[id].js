@@ -9,7 +9,7 @@ import { check_auth_status } from '../actions/auth'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { ArrowLeftIcon } from '@heroicons/react/outline'
-import axios from 'axios'
+
 
 const inter = Inter({ subsets: ['latin'] })
 
