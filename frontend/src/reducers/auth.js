@@ -13,62 +13,65 @@ import {
     AUTHENTICATED_FAIL,
     AUTHENTICATED_SUCCESS,
     REFRESH_FAIL,
-    REFRESH_SUCCESS
+    REFRESH_SUCCESS,
+    OPEN_EDIT_MODAL,
+    CLOSE_EDIT_MODAL
 } from '../actions/types'
 
-const initialState ={
+const initialState = {
     user: null,
-    isAuthenticated : false,
+    isAuthenticated: false,
     loading: false,
-    register_success : false,
+    register_success: false,
+
 
 };
 
-const authReducer = (state=initialState, action) =>{
-    const {type, payload} = action;
-    
-    switch(type){
+const authReducer = (state = initialState, action) => {
+    const { type, payload } = action;
+
+    switch (type) {
         case REGISTER_SUCCESS:
-            return{
+            return {
                 ...state,
-                register_success: true 
+                register_success: true
             }
         case REGISTER_FAIL:
-            return{
+            return {
                 ...state,
             }
         case RESET_REGISTER_SUCCESS:
-            return{
+            return {
                 ...state,
                 register_success: false
             }
         case LOGIN_SUCCESS:
-            return{
+            return {
                 ...state,
-                isAuthenticated :  true
+                isAuthenticated: true
             }
-        case LOGIN_FAIL:  
-            return{
+        case LOGIN_FAIL:
+            return {
                 ...state,
                 isAuthenticated: false
             }
         case LOGOUT_SUCCESS:
-            return{
+            return {
                 ...state,
                 isAuthenticated: false,
-                user: null 
+                user: null
             }
         case LOGOUT_FAIL:
-            return{
+            return {
                 ...state
             }
-        case LOAD_USER_SUCCESS: 
-            return{
+        case LOAD_USER_SUCCESS:
+            return {
                 ...state,
                 user: payload.user
             }
-        case LOAD_USER_FAIL: 
-            return{
+        case LOAD_USER_FAIL:
+            return {
                 ...state,
                 user: null
             }
@@ -78,30 +81,30 @@ const authReducer = (state=initialState, action) =>{
                 isAuthenticated: true
             }
         case AUTHENTICATED_FAIL:
-            return{
+            return {
                 ...state,
                 isAuthenticated: false,
                 user: null
             }
-        case REFRESH_SUCCESS: 
-            return{
+        case REFRESH_SUCCESS:
+            return {
                 ...state,
 
             }
-        case REFRESH_FAIL: 
-            return{
+        case REFRESH_FAIL:
+            return {
                 ...state,
                 isAuthenticated: false,
                 user: null
-                
+
             }
         case SET_AUTH_LOADING:
-            return{
+            return {
                 ...state,
                 loading: true,
             }
-        case REMOVE_AUTH_LOADING: 
-            return{
+        case REMOVE_AUTH_LOADING:
+            return {
                 ...state,
                 loading: false
             }

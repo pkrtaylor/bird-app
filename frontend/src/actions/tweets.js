@@ -146,7 +146,7 @@ export const get_replies = (parent_id) => async dispatch => {
 
     try {
 
-        const res = await fetch('api/tweets/retrieveTweets', {
+        const res = await fetch('http://localhost:3000/api/tweets/retrieveReplies', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -192,10 +192,10 @@ export const modal_off = () => dispatch => {
 }
 
 
-export const get_tweet_id = (id) => dispatch => {
+export const get_tweet_id = (tweetData) => dispatch => {
 
     dispatch({
         type: GET_TWEET_ID,
-        payload: id
+        payload: tweetData
     })
 }

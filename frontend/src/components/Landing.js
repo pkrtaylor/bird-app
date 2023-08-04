@@ -6,7 +6,7 @@ const Landing = ({children}) => {
     <>
     <div className="text-white bg-bgImage bg-cover bg-right min-h-screen flex justify-center items-center flex-col">
         <div className="flex justify-center items-center flex-col">
-            <h1 className="text-[36px] font-serif">Welcome to the bird app</h1>
+            <h1 className="text-[26px] font-serif text-center md:text-[32px] xl:text-[36px] ">Welcome to the Bird App</h1>
             <small>Warning: once you enter time may fly away</small>
         </div>
         <div className="flex w-[300px] justify-between mt-5">

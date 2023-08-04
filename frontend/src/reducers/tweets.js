@@ -16,7 +16,7 @@ import {
 
 const initalState = {
 
-    tweetId: null,
+    tweetData: null,
     isModal: false,
     homeTL: [],
     userTL: [],
@@ -54,6 +54,7 @@ const tweetsReducer = (state = initalState, action) => {
         case GET_REPLIES_FAIL:
             return {
                 ...state,
+                replies: []
             }
         case OPEN_MODAL:
             return {
@@ -68,7 +69,7 @@ const tweetsReducer = (state = initalState, action) => {
         case GET_TWEET_ID:
             return {
                 ...state,
-                tweetId: payload
+                tweetData: payload
             }
         case SET_TWEET_LOADING:
             return {

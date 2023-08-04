@@ -14,15 +14,15 @@ import {
 import { useRouter } from "next/router";
 
 const isReply = 'True'
-const Modal = () => {
+const Modal = ({pfp, username}) => {
     const router = useRouter()
     const isModal = useSelector(state => state.tweets.isModal)
     const user_id = useSelector(state => state.auth.user?.id)
     const dispatch = useDispatch()
     const [reply, setReply] = useState("")
     const [media, setMedia] = useState(null)
-    const parent = useSelector(state => state.tweets.tweetId)
-
+    const parent = useSelector(state => state.tweets.tweetData.tweetId)
+    const tweetData = useSelector(state => state.tweets.tweetData)
 
 
     const sendTweet = () => {
@@ -35,7 +35,7 @@ const Modal = () => {
         dispatch(modal_off())
         setReply("");
 
-        router.push(`/${parent}`);
+        router.push(`/${username}/${parent}`);
     }
 
     return (
@@ -81,34 +81,37 @@ const Modal = () => {
                                     <div className="text-[#6e767d] flex gap-x-3 relative">
                                         <span className="w-0.5 h-full z-[-1] absolute left-5 top-11 bg-gray-600" />
                                         <img
-                                            src=''
+                                            src={tweetData.pfp}
                                             alt=""
-                                            className="h-11 w-11 rounded-full"
+                                            className="h-11 w-11 rounded-full object-cover object-center"
                                         />
                                         <div>
                                             <div className="inline-block group">
                                                 <h4 className="font-bold text-[#d9d9d9] inline-block text-[15px] sm:text-base">
-                                                    username
+                                                    {tweetData.displayName}
                                                 </h4>
                                                 <span className="ml-1.5 text-sm sm:text-[15px]">
-                                                    @displayname{" "}
+                                                    @{tweetData.username}{" "}
                                                 </span>
                                             </div>{" "}
                                             ·{" "}
                                             <span className="hover:underline text-sm sm:text-[15px]">
                                                 {/* <Moment fromNow>{post?.timestamp?.toDate()}</Moment> */}time
                                             </span>
-                                            <p className="text-[#d9d9d9] text-[15px] sm:text-base">
-                                                text
+                                            <p className="text-[#d9d9d9] text-[15px] mb-2 sm:text-base">
+                                                {tweetData.text}
                                             </p>
+                                            <img src={tweetData.media} className="rounded-sm max-h-[400px]">
+
+                                            </img>
                                         </div>
                                     </div>
 
                                     <div className="mt-7 flex space-x-3 w-full">
                                         <img
-                                            src=''
+                                            src={pfp}
                                             alt=""
-                                            className="h-11 w-11 rounded-full"
+                                            className="h-11 w-11 rounded-full object-cover object-center"
                                         />
                                         <div className="flex-grow mt-2">
                                             <textarea

@@ -67,8 +67,9 @@ export default async (req, res) =>{
                     success: 'Logged in successfully'
                 })
             }else{
+                console.log(data)
                 return res.status(apiRes.status).json({
-                    error : 'Authentication failed'
+                    error : 'Invalid Credentials'
                 })
             }
         } catch (error) {
