@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { login, reset_register_success } from '../../actions/auth'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import Alert from '../../components/Alert'
 
 
 const Login = () => {
@@ -16,6 +17,11 @@ const Login = () => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
   //to bring in redux state use the useSelector and
   const loading = useSelector(state => state.auth.loading)
+  const [focus, setFocus] = useState({
+    username:false,
+    password: false
+  })
+  
   const [formData, setFormData] = useState({
 
 
@@ -56,53 +62,68 @@ const Login = () => {
     router.push('/')
   }
   return (
-    <Landing>
-      <div className="fixed inset-0 bg-opacity-25 backdrop-blur-sm text-white flex justify-center items-center">
-        <div className="w-[600px] bg-white text-black rounded-md flex flex-col ">
+    
+    <div className="relative text-white flex justify-center items-center h-screen">
+      
+      
+      <div className="w-[600px] bg-white text-black rounded-md flex flex-col ">
           <div className='h-10 w-10 cursor-pointer hover:bg-[#1d9bf0] hover:bg-opacity-10 flex
           items-center justify-center rounded-full transition ease-out self-start '>
-            <XIcon className='h-6 w-6' />
+            <Link href="/">
+            <XIcon className='h-6 w-6'/>
+            </Link>
           </div>
           <div className='self-center'>
             <Image src="https://icon-library.com/images/twitter-icon-eps/twitter-icon-eps-10.jpg" width={40} height={40} />
           </div>
-          <form className="flex flex-col items-center py-10 self-center" ref={formRef} onSubmit={onSubmit}>
-            <h3 className="mb-10 text-3xl font-bold">Sign in to Twitter</h3>
-            <div className="space-y-5">
-              <div className="relative">
-                <input
-                  className="authInput"
-                  type='text'
-                  name='username'
-                  onChange={onChange}
-                  value={username}
-                  required
-
-                />
-                <label className="authLabel">Username</label>
-              </div>
-              <div className="relative">
-                <input
-                  className="authInput"
-                  type='text'
-                  name='password'
-                  onChange={onChange}
-                  value={password}
-                  required
-
-                />
-                <label className='authLabel'>Password</label>
-              </div>
+            <form className="flex flex-col items-center py-10 self-center" ref={formRef} onSubmit={onSubmit}>
+                <h3 className="mb-10 text-3xl font-bold">Sign in to Twitter</h3>
+                <div className="space-y-5">
+                    <div className="relative">
+                      <input
+                      className="authInput"
+                      type='text'
+                      name='username'
+                      onChange={onChange}
+                      value={username}
+                      required
+                      onFocus={()=>{setFocus(prev =>({...prev, username:true}))}}
+                      onBlur={()=>{!username.trim() && setFocus(prev =>({...prev, username:false}))}}
+                    
+                     
+                      />
+                      <label className={ focus['username'] ? "authLabelFocus" : "authLabel"}>Username</label>
+                    </div>
+                    <div className="relative">
+                      <input
+                      className="authInput"
+                      type='text'
+                      name='password'
+                      onChange={onChange}
+                      value={password}
+                      required
+                      onFocus={()=>{setFocus(prev =>({...prev, password:true}))}}
+                      onBlur={()=>{!password.trim() && setFocus(prev =>({...prev, password:false}))}}
+                      
+                      />
+                      <label className={ focus['password'] ? "authLabelFocus" : "authLabel"}>Password</label>
+                    </div>
+                </div>
+                  <button type='submit' className='bg-black text-white h-[38px] w-[300px] rounded-[20px] mt-10 '>Login</button>
+            </form>
+            <div className="self-center h-[58px] w-[300px]">
+              <p className="text-sm pl-[.5px] text-[#536471]">Dont have an account? <a href='/auth/register' className="text-[#1a8cd8] cursor-pointer">Sign up</a></p>
             </div>
             <button type='submit' className='bg-black text-white h-[38px] w-[300px] rounded-[20px] mt-10 '>Login</button>
-          </form>
+          </div>
           <div className="self-center h-[58px] w-[300px]">
             <p className="text-sm pl-[.5px] text-[#536471]">Dont have an account? <Link href='/auth/register' className="text-[#1a8cd8] cursor-pointer">Sign up</Link></p>
           </div>
         </div>
-      </div>
-    </Landing>
+     
 
+    
+   
   )
 }
 

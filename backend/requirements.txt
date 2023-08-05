@@ -1,5 +1,5 @@
 django
-psycopg2-binary~=2.9.3
+psycopg2
 boto3
 django-cors-headers
 django-redis

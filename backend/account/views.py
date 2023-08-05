@@ -7,7 +7,10 @@ from rest_framework import permissions, status
 # from django.contrib.auth.models import User
 from rest_framework.parsers import MultiPartParser, FormParser
 from .models import User
-from .serializers import UserSerializer
+from .models import Profile
+from .serializers import UserSerializer, ProfileSerializer
+from django.db import Error
+import datetime
 
 
 class RegisterView(APIView):
@@ -42,16 +45,25 @@ class RegisterView(APIView):
                         user.save()
                         # check if user was created successfully
 
-                        if User.objects.filter(username=username).exists():
-                            return Response(
+                        
+                            
+                        try:
+                            if User.objects.filter(username=username).exists():
+                                user_id = User.objects.filter(username=username).values('id')
+                                #create default profile, so profile page can be displayed
+                                default_profile = Profile.objects.create(user_id_id=user_id)
+                                default_profile.save()
+                                
+                                return Response(
                                 {'success': 'Account created successfully'},
                                 status=status.HTTP_201_CREATED
                             )
-                        else:
+                        except Error as e:
                             return Response(
-                                {'error': 'Somethigng went wrong trying to create your account'},
+                                {'error': e.message},
                                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
                             )
+                    
                     else:
                         return Response({'error': 'Username already exists'},
                                         status=status.HTTP_400_BAD_REQUEST
@@ -66,16 +78,15 @@ class RegisterView(APIView):
                     {'error': ' Passwords do no match'},
                     status=status.HTTP_400_BAD_REQUEST
                 )
-        except:
+        except Error as e:
             return Response(
-                {'error': 'Something went wrong when trying to register user acccount'},
+                {'error': e.message},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
-
-
 # now lets create a view that will load our user and end it back to next js
 
 class LoadUserView(APIView):
+    
     def get(self, request, format=None):
         try:
             # retrieve the user
@@ -93,3 +104,125 @@ class LoadUserView(APIView):
             return Response(
                 {'error': 'Something went wrong when trying to load user data'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+
+class GetAllUsers(APIView):
+    permission_classes = (permissions.AllowAny, )
+    def get(self, request):
+        try:
+            profiles = Profile.objects.all()
+            profiles = ProfileSerializer(profiles, many=True)
+            #im going to do a join here on users and profile 
+            # users = UserSerializer(users, many=True) had to remove this becasue whats returned is just list with string values in users, theres no need to serializer
+            #users.data ketp coming out empty
+
+            return Response({'profiles' : profiles.data},
+                            status=status.HTTP_200_OK)
+        except Error as e:
+            return Response(
+                {'error': e.message},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+
+
+
+class CreateProfile(APIView):
+    permission_classes = (permissions.AllowAny, )
+
+    def post(self, request, *args, **kwargs):
+        try:
+
+            # remove values from request
+
+            user_id = request.data['user_id']
+            pfp = request.data['pfp']
+            bgp = request.data['bgp']
+            display_name = request.data['display_name']
+            bio = request.data['bio']
+            location = request.data['location']
+            birthdate = request.data['birthdate']
+            print(0)
+            # get user object for foriegn key
+            user = User.objects.filter(id=user_id).values('id')
+            print(0.1)
+
+            # get birthday and turn to date type
+            birthdate = birthdate.split('-')
+            d = datetime.date(int(birthdate[0]), int(
+                birthdate[1]), int(birthdate[2]))
+            print(0.2)
+            if not Profile.objects.filter(user_id_id=user_id).exists():
+                print(1)
+
+                new_profile = Profile.objects.create(user_id_id=user,
+                                                     pfp=pfp, bgp=bgp, display_name=display_name, bio=bio, location=location, birthdate=d)
+                new_profile.save()
+
+                new_profile = ProfileSerializer(new_profile, many=True)
+
+                return Response(
+                    {'profile': new_profile.data},
+                    status=status.HTTP_200_OK
+                )
+            else:
+                print(2)
+                profile = Profile.objects.get(user_id_id=user_id)
+
+                profile.pfp = pfp
+                profile.bgp = bgp
+                profile.display_name = display_name
+                profile.bio = bio
+                profile.location = location
+                profile.birthdate = d
+
+                profile.save()
+
+                profile = ProfileSerializer(profile)
+
+                return Response(
+                    {'profile': profile.data},
+                    status=status.HTTP_200_OK
+                )
+
+        except Error as e:
+            return Response(
+                {'error': e.message},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+
+class GetProfile(APIView):
+    permission_classes = (permissions.AllowAny, )
+
+    def get(self, request, **kwargs):
+
+        username = self.kwargs['id']
+        user_id = User.objects.get(username=username)
+        print(user_id)
+        #filter returns a queryset i cant use that as an exact look up in the filter after try 
+        
+        try:
+            if Profile.objects.filter(user_id_id=user_id).exists():
+
+                profile = Profile.objects.filter(
+                    user_id_id=user_id)
+                print(profile)
+
+                profile = ProfileSerializer(profile, many=True)
+
+                print(profile.data)
+                return Response(
+                    {'profile': profile.data},
+                    status=status.HTTP_200_OK
+                )
+            else:
+                Response(
+                    {'error': 'Something went wrong'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+        except Error as e:
+            return Response(
+                {'error': e.message},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )

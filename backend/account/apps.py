@@ -1,4 +1,6 @@
 from django.apps import AppConfig
+import os
+import json
 
 
 class AccountConfig(AppConfig):

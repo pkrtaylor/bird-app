@@ -1,7 +1,18 @@
 {
-  "extends": "next",
-  "rules": {
-    "react/no-unescaped-entities": "off",
-    "@next/next/no-page-custom-font": "off"
-  }
+    "extends": "next/core-web-vitals",
+    "overrides": [
+        {
+            "files": [
+                "styles/global.css"
+            ],
+            "rules": {
+                "no-use-before-define": [
+                    "off"
+                ],
+                "max-lines-per-function": [
+                    "off"
+                ]
+            }
+        }
+    ]
 }

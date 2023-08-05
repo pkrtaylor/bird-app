@@ -9,27 +9,57 @@ import {
 } from '@heroicons/react/outline'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { get_tweet_id, modal_on } from '../actions/tweets'
+import { get_user_profile } from '../actions/profile'
+import Moment from 'react-moment'
 
-function Post({ id, text, media, username, tweetPage }) {
+//in every post we need to request from the db a users pfp and username and displat_name 
+//because if a user changes in the future we cant go back and change all the tweets in the users cache 
+//unless every time a user changes either of the those things we completely recreate users tl and home tl 
+
+
+function Post({ id, text, media, username, createdAt, tweetPage }) {
 
   const auth_username = useSelector(state => state.auth.user?.username)
   const dispatch = useDispatch()
   const router = useRouter();
+  const [profile, setProfile] = useState([])
   // const [tweetId, setTweetId] = useState(null)
   // const isModal = useSelector(state => state.tweets.isModal)
+  const tweetData = useSelector(state => state.tweets.tweetData)
+  console.log(username)
+
+  useEffect(()=>{
+
+    async function getProfile(){
+      try {
+        const res = await fetch(`http://localhost:8000/api/account/getProfile/${username}`, {
+                        method: 'GET'
+              })
+        const data = await res.json()
+        setProfile(data.profile)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getProfile();
+
+   
+  },[username])
+console.log(profile)
+  
 
   return (
     <div
       className="p-3 flex cursor-pointer border-b border-gray-700"
-      onClick={() => router.push(`/${id}`)}
+      onClick={() => router.push(`/${username}/${id}`)}
     >
       {!tweetPage && (
         <img
-          src="https://www.slashfilm.com/img/gallery/smallvilles-director-had-to-beg-tom-welling-to-even-accept-an-audition/l-intro-1657569446.jpg"
+          src={profile[0]?.pfp}
           alt=''
-          className="h-11 w-11 rounded-full mr-4"
+          className="h-11 w-11 rounded-full mr-4 object-cover object-center"
         />)}
       <div className="flex flex-col space-y-2 w-full">
         <div className={`flex ${!tweetPage && "justify-between"}`}>
@@ -41,12 +71,12 @@ function Post({ id, text, media, username, tweetPage }) {
           )}
           <div className="text-[#6e767d]">
             <div className="inline-block group">
-              <h4 className={`font-bold text-[15px] sm:text-base text-[#d9d9d9] group-hover:underline ${!tweetPage && "inline-block"}`}>{username}</h4>
-              <span className={`text-sm sm:text-[15px] ${!tweetPage && "ml-1.5"}`}>@{username}</span>
+              <h4 className={`font-bold text-[15px] sm:text-base text-[#d9d9d9] group-hover:underline ${!tweetPage && "inline-block"}`}>{profile[0]?.display_name}</h4>
+              <span className={`text-sm sm:text-[15px] ${!tweetPage && "ml-1.5"}`}>@{profile[0]?.user_id?.username}</span>
             </div>{" "}
             ·{" "}
             <span className="hover:underline text-sm sm:text-[15px]">
-              {/* <Moment fromNow>{timestamp.toDate()}</Moment> */}
+              <Moment fromNow>{createdAt}</Moment>
             </span>
             {!tweetPage && <p className="text-[#d9d9d9] sm:text-base mt-0.5">{text}</p>
             }
@@ -66,7 +96,17 @@ function Post({ id, text, media, username, tweetPage }) {
             onClick={(e) => {
               e.stopPropagation();
               dispatch(modal_on())
-              dispatch(get_tweet_id(id));
+              dispatch(get_tweet_id({
+                'tweetId': id,
+                'text': text,
+                'media' : media,
+                'pfp': profile[0].pfp,
+                'displayName': profile[0].display_name,
+                'username':profile[0].user_id?.username
+
+                
+
+              }));
 
 
             }}

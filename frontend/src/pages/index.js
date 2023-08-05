@@ -7,13 +7,35 @@ import Landing from '../components/Landing'
 import Layout from '../hocs/Layout'
 import { useDispatch, useSelector } from 'react-redux'
 import { check_auth_status } from '../actions/auth'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Modal from '../components/Modal'
+import RightSidebar from '../components/RightSidebar'
+import { get_user_profile } from '../actions/profile'
+import { relationsList } from '../actions/relations'
+import {
+ 
+  BookmarkIcon,
+  UserIcon,
+  
+} from "@heroicons/react/outline";
+import Link from 'next/link'
+import { XIcon } from "@heroicons/react/outline"
+import SearchSlide from '../components/SearchSlide'
+
+
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const dispatch = useDispatch();
-
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
+  const username = useSelector(state=>state.auth.user?.username)
+  const isModal = useSelector(state => state.tweets.isModal)
+  const [toggleSideBar, setToggleSideBar] = useState(false)
+  const [toggleSearchSlide, setToggleSearchSlide] = useState(false)
+  const mainProfile = useSelector(state=>state.profile?.mainProfile[0])
+  const followerCount = useSelector(state => state.relations?.mainRelationsList?.followers) 
+  const followingCount = useSelector(state => state.relations?.mainRelationsList?.following) 
+  console.log(mainProfile?.display_name)
   useEffect(() => {
     if (dispatch && dispatch !== null && dispatch !== undefined) {
       dispatch(check_auth_status());//place the load process in this action
@@ -23,8 +45,14 @@ export default function Home() {
     }
   }, [dispatch])
 
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
-  const isModal = useSelector(state => state.tweets.isModal)
+  useEffect(()=>{
+    if(isAuthenticated){
+      dispatch(get_user_profile(username, true))
+      dispatch(relationsList(username, true))
+    }
+  },[username])
+
+  
   if (isAuthenticated === false) {
     return (
       <>
@@ -50,16 +78,20 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="bg-black min-h-screen max-w-[1500px] flex mx-auto">
-
+      <main className=" bg-black relative min-h-screen max-w-[1500px] flex mx-auto">
+      
+        
         {/* Sidebar */}
         <Sidebar />
 
         {/* Feed */}
-        <Feed />
+        <Feed setToggleSideBar={setToggleSideBar} toggleSideBar={toggleSideBar} setToggleSearchSlide={setToggleSearchSlide} toggleSearchSlide={toggleSearchSlide} />
+        
+       
         {/* Widgets */}
-
-        {isModal && <Modal />}
+        <RightSidebar/>
+        
+        {isModal && <Modal pfp={mainProfile?.pfp}/>}
       </main>
 
     </>

@@ -17,6 +17,11 @@
     cursor-pointer w-[52px] h-[52px] xl:w-auto xl:h-auto xl:py-3
     xl:px-4 transition duration-200 ease-out;
   }
+  .hoverAnimation2 {
+    @apply hover:bg-[#d9d9d9] hover:bg-opacity-20 rounded-full
+    cursor-pointer w-auto h-auto py-3
+    px-4 transition duration-200 ease-out;
+  }
 
   .icon {
     @apply cursor-pointer w-9 h-9 hover:bg-[#1d9bf0] hover:bg-opacity-10 flex
@@ -37,6 +42,7 @@
   outline: none;
   padding: 0 10px;
   font-size: 20px;
+  
 }
 
 .authInput:focus{
@@ -54,8 +60,126 @@
   padding: 0 5px;
 }
 
-.authInput:focus ~ .authLabel{
+.authLabelFocus{
+  color: #536471;
+  position: absolute;
+  top: -12px;
+  left: 15px;
+  background-color: white;
+  text-transform: capitalize;
+  font-size: 18px;
+  transition: top .3s;
+  padding: 0 5px;
+}
+
+
+@keyframes append-animate{
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
+.newAlert{
+    animation: append-animate .5s linear;
+}
+
+@keyframes slideOut-animate{
+  from{
+    display: hidden;
+    left: -100%;
+  }
+}
+.slideOut{
+    animation: slideOut-animate .3s linear;
+}
+@keyframes slideIn-animate{
+  from{
+    display: block;
+    left: 0;
+  }
+}
+.slideIn{
+    animation: slideIn-animate .3s linear;
+}
+
+
+/* .authInput:focus ~ .authLabel{
   top: -12px;
   background-color: white;
+}
+.authInput:active ~ .authLabel{
+  top: -12px;
+  background-color: white;
+} */
+
+
+.slideBar{
+  background-color: white;
+  height: 100%;
+  width: 80%;
+  top: 0;
+  left: 0;
+  position: inherit;
+  transition: all 0.3s ease-in-out;
+  
+}
+
+
+.noSlideBar{
+  background-color: white;
+  height: 100%;
+  width: 80%;
+  top: 0;
+  left: -100%;
+  position: inherit;
+  transition: all 0.3s ease-in-out;
+ 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.profileInput{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  color: white;
+  background-color: transparent;
+  padding-left: 8px;
+  font-size: 15px;
+  border: 2px solid #536471;
+  border-radius: 5px;
+  outline: none;
+}
+
+
+
+.profileLabel{
+  color: #536471;
+  font-size: 12px;
+  position: absolute;
+  left: 10px;
+  top: 5px;
+}
+
+.profileInput:focus{
+  border: 2px solid #4db1f3;
+
+}
+
+.profileInput:focus ~ .profileLabel{
+  color:#4db1f3 ;
 }
 

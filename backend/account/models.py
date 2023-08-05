@@ -57,3 +57,18 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = 'User'
         verbose_name_plural = 'Users'
+
+
+class Profile(models.Model):
+    profile_id = models.UUIDField(primary_key=True, unique=True,
+                                  default=uuid.uuid4, editable=False)
+    user_id = models.ForeignKey(
+        User, name='user_id', on_delete=models.CASCADE)
+    pfp = models.ImageField(upload_to='profilePic/', blank=True, null=True)
+    bgp = models.ImageField(upload_to='bgPic/', blank=True, null=True)
+    display_name = models.CharField(blank=True, default='')
+    bio = models.CharField(max_length=255, blank=True, default='')
+    location = models.CharField(max_length=255, blank=True, default='')
+    # https://www.geeksforgeeks.org/datefield-django-models/
+    birthdate = models.DateField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)

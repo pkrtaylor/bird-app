@@ -9,7 +9,7 @@ import Picker from "@emoji-mart/react"
 import data from '@emoji-mart/data'
 import { send_tweet } from "../actions/tweets"
 
-const Input = () => {
+const Input = ({pfp}) => {
   //overflow-y-scroll allows us to scroll through the text we are typing
   //tracking-wide is the space between words
   const user_id = useSelector(state => state.auth.user?.id)
@@ -116,9 +116,9 @@ const Input = () => {
     overflow-y-scroll scrollbar-hide ${loading && "opacity-60"
       }`}>
       <img
-        src="https://www.slashfilm.com/img/gallery/smallvilles-director-had-to-beg-tom-welling-to-even-accept-an-audition/l-intro-1657569446.jpg"
+        src={pfp}
         alt=""
-        className="h-11 w-11 rounded-full cursor-pointer object-contain " />
+        className="h-11 w-11 rounded-full cursor-pointer object-cover object-center " />
       <div className="w-full divide-y divide-gray-700 ">
         <div className={`${selectedFile && "pb-7"} ${text && "space-y-2.5"}`} >
           <textarea
