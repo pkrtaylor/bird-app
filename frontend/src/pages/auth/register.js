@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { register } from '../../actions/auth'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -148,7 +149,7 @@ const Register = () => {
             <button type='submit' className='bg-black text-white h-[38px] w-[300px] rounded-[20px] mt-10 '>Sign up</button>
           </form>
           <div className="self-center h-[58px] w-[300px]">
-            <p className="text-sm pl-[.5px] text-[#536471]">Dont have an account? <a href='/auth/login' className="text-[#1a8cd8] cursor-pointer">Login</a></p>
+            <p className="text-sm pl-[.5px] text-[#536471]">Dont have an account? <Link href='/auth/login' className="text-[#1a8cd8] cursor-pointer">Login</Link></p>
           </div>
         </div>
       </div>
