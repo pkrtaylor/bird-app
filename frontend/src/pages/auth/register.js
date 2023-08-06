@@ -66,7 +66,7 @@ const Register = () => {
             <XIcon className='h-6 w-6' />
           </div>
           <div className='self-center'>
-            <Image src="https://icon-library.com/images/twitter-icon-eps/twitter-icon-eps-10.jpg" width={40} height={40} />
+            <Image alt='' src="https://icon-library.com/images/twitter-icon-eps/twitter-icon-eps-10.jpg" width={40} height={40} />
           </div>
           <h3 className="mb-5 mt-3 text-3xl font-bold self-center">Create a Twitter Account</h3>
           <form className="flex flex-col items-center py-5 self-center" onSubmit={onSubmit}>
