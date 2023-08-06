@@ -44,6 +44,9 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 DEBUG = False
 
 ALLOWED_HOSTS = ['bird-app-snowy.vercel.app']
+# DEBUG = True
+
+# ALLOWED_HOSTS = []
 
 
 # Application definition

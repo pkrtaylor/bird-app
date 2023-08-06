@@ -1,12 +1,13 @@
 import React, {useState} from 'react'
 import {FaSearch} from 'react-icons/fa'
+import { DJANGO_API_URL } from '../config';
 
 const SearchBar = ({setResults, setInput, input}) => {
 
   
 
   const fetchData = (value) => {
-    fetch(`${process.env.DJANGO_API_URL}/api/account/userList`)
+    fetch(`${DJANGO_API_URL}/api/account/userList`)
     .then((response) => response.json())
     .then((json) => {
         // console.log(json.profiles)

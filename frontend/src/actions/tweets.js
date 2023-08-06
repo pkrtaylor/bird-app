@@ -12,6 +12,7 @@ import {
     SEND_TWEET_SUCCESS,
     SET_TWEET_LOADING
 } from './types'
+import { API_URL } from '../config';
 
 
 
@@ -146,7 +147,7 @@ export const get_replies = (parent_id) => async dispatch => {
 
     try {
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tweets/retrieveReplies`, {
+        const res = await fetch(`${API_URL}/api/tweets/retrieveReplies`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

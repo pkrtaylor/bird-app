@@ -22,6 +22,7 @@ export default async (req, res) => {
 
         try {
             //api request to django
+            console.log(DJANGO_API_URL)
             const apiRes = await fetch(`${DJANGO_API_URL}/api/token/`, {
                 method: 'POST',
                 headers: {

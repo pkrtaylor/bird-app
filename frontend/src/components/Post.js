@@ -13,6 +13,7 @@ import React, { useEffect, useState } from 'react'
 import { get_tweet_id, modal_on } from '../actions/tweets'
 import { get_user_profile } from '../actions/profile'
 import Moment from 'react-moment'
+import { DJANGO_API_URL } from '../config'
 
 //in every post we need to request from the db a users pfp and username and displat_name 
 //because if a user changes in the future we cant go back and change all the tweets in the users cache 
@@ -34,7 +35,7 @@ function Post({ id, text, media, username, createdAt, tweetPage }) {
 
     async function getProfile(){
       try {
-        const res = await fetch(`${process.env.DJANGO_API_URL}/api/account/getProfile/${username}`, {
+        const res = await fetch(`${DJANGO_API_URL}/api/account/getProfile/${username}`, {
                         method: 'GET'
               })
         const data = await res.json()
