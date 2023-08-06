@@ -50,22 +50,18 @@ class SendTweet(APIView):
             user_id = request.data['user_id']
             is_reply = request.data['is_reply']
             parent_id = request.data['parent_id']
-            print(media)
-            print(text)
-            print(user_id)
-            print(is_reply)
-            print(parent_id)
+           
             # print(text)
             user = User.objects.filter(id=user_id).values('id')
-            print(1)
+           
 
             if is_reply == 'True':
-                print(2)
+                
                 parent = Tweet.objects.get(tweet_id=parent_id)
-                print(3)
+                
                 new_tweet = Tweet.objects.create(
                     text=text, media=media, user_id_id=user, parent=parent, is_reply=True, code='1')
-                print(4)
+                
                 new_tweet.save()
 
             else:
@@ -79,16 +75,16 @@ class SendTweet(APIView):
             # print(new_tweet.pk)
             # print(new_tweet['tweet_id'])
             # we can still access that new tweet object within the variable to get media link from aws3
-            print(5)
+           
             new_tweet = TweetSerializer(new_tweet).data
-            print(6)
+            
             tweet_id = str(new_tweet['tweet_id']).replace("-", "")
 
             update = Tweet.objects.get(tweet_id=new_tweet['tweet_id'])
             update.code = tweet_id
             update.save()
             media_link = new_tweet['media']
-            print(7)
+            
 
             created_at = new_tweet['created_at']
             user = user.values()
@@ -148,7 +144,7 @@ class SendTweet(APIView):
                 pipe = redisClient.pipeline()
                 for i in range(0, len(followers)):
                     redisKey2 = "HomeTL:" + followers[i]
-                    print(redisKey2)
+                    
                     pipe.lpush(redisKey2, redisTweetObjectString)
 
                 pipe.execute()
@@ -159,7 +155,7 @@ class SendTweet(APIView):
             #     print('fail')
             data = redisClient.lrange(redisKey, 0, -1)
             redisClient.close()
-            print(data)
+            
             unstring_data = []
             for x in data:
                 unstring_data.append(ast.literal_eval(x))
@@ -253,21 +249,26 @@ class RetrieveHomeTL(APIView):
 
     def get(self, request):
         try:
+            print('retrieveHomeTL 1')
             user = request.user
+            print('retrieveHomeTL 1.5 ')
             user = UserSerializer(user).data
             if user:
+                print('retrieveHomeTL 2')
 
                 homeTL_key = "HomeTL:" + user['username']
+                print(homeTL_key)
                 redisClient = redis.StrictRedis(
                     host="redis-12081.c253.us-central1-1.gce.cloud.redislabs.com",
                     port=12081, charset="utf-8",
                     username="default",
                     password=str(os.getenv('REDIS_CLIENT_PASSWORD')),
                     decode_responses=True)
-
+                print('retrieveHomeTL 3')
                 data = redisClient.lrange(homeTL_key, 0, -1)
-
+                print(data)
                 redisClient.close()
+                print(4)
                 home_tl = []
                 for x in data:
                     home_tl.append(ast.literal_eval(x))
@@ -284,9 +285,9 @@ class RetrieveHomeTL(APIView):
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
-        except:
+        except Error as e:
             return Response(
-                {'error': 'something went wrong retrieving tweets'},
+                {'error': e.message},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 

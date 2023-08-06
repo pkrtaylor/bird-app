@@ -142,18 +142,18 @@ class CreateProfile(APIView):
             bio = request.data['bio']
             location = request.data['location']
             birthdate = request.data['birthdate']
-            print(0)
+            
             # get user object for foriegn key
             user = User.objects.filter(id=user_id).values('id')
-            print(0.1)
+            
 
             # get birthday and turn to date type
             birthdate = birthdate.split('-')
             d = datetime.date(int(birthdate[0]), int(
                 birthdate[1]), int(birthdate[2]))
-            print(0.2)
+            
             if not Profile.objects.filter(user_id_id=user_id).exists():
-                print(1)
+                
 
                 new_profile = Profile.objects.create(user_id_id=user,
                                                      pfp=pfp, bgp=bgp, display_name=display_name, bio=bio, location=location, birthdate=d)
@@ -166,7 +166,7 @@ class CreateProfile(APIView):
                     status=status.HTTP_200_OK
                 )
             else:
-                print(2)
+                
                 profile = Profile.objects.get(user_id_id=user_id)
 
                 profile.pfp = pfp
@@ -199,7 +199,7 @@ class GetProfile(APIView):
 
         username = self.kwargs['id']
         user_id = User.objects.get(username=username)
-        print(user_id)
+        
         #filter returns a queryset i cant use that as an exact look up in the filter after try 
         
         try:
@@ -207,11 +207,11 @@ class GetProfile(APIView):
 
                 profile = Profile.objects.filter(
                     user_id_id=user_id)
-                print(profile)
+                
 
                 profile = ProfileSerializer(profile, many=True)
 
-                print(profile.data)
+                
                 return Response(
                     {'profile': profile.data},
                     status=status.HTTP_200_OK

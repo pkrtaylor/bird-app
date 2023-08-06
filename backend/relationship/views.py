@@ -22,10 +22,9 @@ class Follow(APIView):
             data = request.data
             follower = data['follower']
             followee = data['followee']
-            print(followee)
-            print(follower)
+           
             if not Relations.objects.filter(follower=follower, followee=followee).exists():
-                print(1.1)
+                
                 follow_process = Relations.objects.create(
                     follower=follower,
                     followee=followee
@@ -34,9 +33,9 @@ class Follow(APIView):
                 follow_process.save()
 
                 if Relations.objects.filter(follower=follower, followee=followee).exists():
-                    print(2)
+                    
                     relation = Relations.objects.filter(follower=follower, followee=followee)
-                    print(2.1)
+                    
 
                     relation = RelationsSerializer(relation, many=True)
 
@@ -151,30 +150,29 @@ class RelationsList(APIView):
         username = self.kwargs['id']
 
         try:
-            print(username)
+            
             relationsList = {}
-            print(1)
+            
             if Relations.objects.filter(follower=username).exists():
-                print(1.1)
+               
                 following = Relations.objects.filter(follower=username).values_list('followee', flat=True)
-                print(1.2)
-                print(following)
-                # following = FollowingSerializer(following, many=True)
-                print(1.3)
                 
-                print(1.4)
+                # following = FollowingSerializer(following, many=True)
+                
+                
+                
                 relationsList['following'] = following
-                print('1.4.1')
-                print(relationsList)
+                
+                
             else:
                 relationsList['following'] = []
             
             if Relations.objects.filter(followee=username).exists():
-                print(1.5)
+                
                 followees = Relations.objects.filter(followee=username).values_list('follower', flat=True)
-                print(1.6)
+                
                 # followees = FolloweesSerializer(followees, many=True)
-                print(1.7)
+                
                 relationsList['followers'] = followees
             else:
                 relationsList['followers'] = []

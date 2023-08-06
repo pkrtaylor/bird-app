@@ -41,9 +41,9 @@ environ.Env.read_env(BASE_DIR / '.env')
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app', 'bird-app-snowy.vercel.app']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -207,12 +207,8 @@ SIMPLE_JWT = {
 
 CORS_ALLOWED_ORIGINS = [
 
-<<<<<<< HEAD
     'http://localhost:3000',
     'https://birdapp-inky.vercel.app'
-=======
-    'http://localhost:3000', 'http://192.168.1.54', 'http://192.168.1.155'
->>>>>>> master
 ]
 
 # Default primary key field type
@@ -236,27 +232,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
 # AWS_S3_REGION_NAME = env('AWS_S3_REGION_NAME')
 
-<<<<<<< HEAD
 # here we are adding the google cloud storag set up
-=======
-# here we are adding the google cloud storage set up
-# def create_keyfile_dict():
-#     variables_keys = {
-#         "type": os.getenv("TYPE"),
-#         "project_id": os.getenv("PROJECT_ID"),
-#         "private_key_id": os.getenv("PRIVATE_KEY_ID"),
-#         "private_key": os.getenv("PRIVATE_KEY"),
-#         "client_email": os.getenv("CLIENT_EMAIL"),
-#         "client_id": os.getenv("CLIENT_ID"),
-#         "auth_uri": os.getenv("AUTH_URI"),
-#         "token_uri": os.getenv("TOKEN_URI"),
-#         "auth_provider_x509_cert_url": os.getenv("AUTH_PROVIDER_X509_CERT_URL"),
-#         "client_x509_cert_url": os.getenv("CLIENT_X509_CERT_URL"),
-#         "universe_domain": "googleapis.com"
-#     }
-#     return variables_keys
-
->>>>>>> master
 variables_keys = {
     "type": os.getenv("TYPE"),
     "project_id": os.getenv("PROJECT_ID"),
@@ -272,7 +248,6 @@ variables_keys = {
 }
 
 
-<<<<<<< HEAD
 # configuration for media file storing and reriving media file from gcloud
 # GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
 #     os.path.join(BASE_DIR, 'creds.json'))
@@ -280,13 +255,11 @@ variables_keys = {
 
 # print(variables_keys)
 # print(json_object)
-GS_CREDENTIALS = service_account.Credentials.from_service_account_info(
-    variables_keys)
+# GS_CREDENTIALS = service_account.Credentials.from_service_account_info(
+#     variables_keys)
 # GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
 #     os.path.join(BASE_DIR, 'credential.json')
 # )
-=======
->>>>>>> master
 # configuration for media file storing and reriving media file from gcloud
 # GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
 #     os.path.join(BASE_DIR, 'creds.json'))
