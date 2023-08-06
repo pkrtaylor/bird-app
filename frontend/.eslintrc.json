@@ -1,18 +1,25 @@
 {
-    "extends": "next/core-web-vitals",
-    "overrides": [
-        {
-            "files": [
-                "styles/global.css"
-            ],
-            "rules": {
-                "no-use-before-define": [
-                    "off"
-                ],
-                "max-lines-per-function": [
-                    "off"
-                ]
-            }
-        }
-    ]
+    "extends": "next/core-web-vitals"
+   
 }
+
+
+
+// {
+//     "extends": "next/core-web-vitals",
+//     "overrides": [
+//         {
+//             "files": [
+//                 "styles/global.css"
+//             ],
+//             "rules": {
+//                 "no-use-before-define": [
+//                     "off"
+//                 ],
+//                 "max-lines-per-function": [
+//                     "off"
+//                 ]
+//             }
+//         }
+//     ]
+// }
