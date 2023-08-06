@@ -4,7 +4,7 @@
 //when you go into production you wont actually hit localhost:8000 but it will be your domain 
 //so lets use envionrment variables 
 
-import { API_URL } from "../../../config";
+import { DJANGO_API_URL} from "../../../config";
 
 
 export default async (req, res) =>{
@@ -30,7 +30,7 @@ export default async (req, res) =>{
         })
 
         try {
-            const apiRes = await fetch(`${API_URL}/api/account/register`,{
+            const apiRes = await fetch(`${DJANGO_API_URL}/api/account/register`,{
                 method: 'POST',
                 headers: {
                     'Accept' : 'application/json',

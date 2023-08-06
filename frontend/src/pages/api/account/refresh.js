@@ -1,5 +1,5 @@
 import cookie from 'cookie'
-import {API_URL} from '../../../config/index'
+import {DJANGO_API_URL} from '../../../config/index'
 
 
 
@@ -33,7 +33,7 @@ export default async (req, res) => {
         })
 
         try {
-            const apiRes = await fetch(`${API_URL}/api/token/refresh/`,
+            const apiRes = await fetch(`${DJANGO_API_URL}/api/token/refresh/`,
             {
                 method: 'POST',
                 headers: {

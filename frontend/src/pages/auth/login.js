@@ -114,11 +114,9 @@ const Login = () => {
             <div className="self-center h-[58px] w-[300px]">
               <p className="text-sm pl-[.5px] text-[#536471]">Dont have an account? <a href='/auth/register' className="text-[#1a8cd8] cursor-pointer">Sign up</a></p>
             </div>
-            <button type='submit' className='bg-black text-white h-[38px] w-[300px] rounded-[20px] mt-10 '>Login</button>
+            
           </div>
-          <div className="self-center h-[58px] w-[300px]">
-            <p className="text-sm pl-[.5px] text-[#536471]">Dont have an account? <Link href='/auth/register' className="text-[#1a8cd8] cursor-pointer">Sign up</Link></p>
-          </div>
+          
         </div>
      
 

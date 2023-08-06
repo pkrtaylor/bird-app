@@ -41,9 +41,9 @@ environ.Env.read_env(BASE_DIR / '.env')
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['bird-app-snowy.vercel.app']
 
 
 # Application definition

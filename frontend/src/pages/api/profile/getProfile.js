@@ -1,5 +1,5 @@
 import cookie from 'cookie'
-import { API_URL } from '../../../config/index'
+import { DJANGO_API_URL } from '../../../config/index'
 
 
 
@@ -23,7 +23,7 @@ export default async (req, res) => {
         console.log(req.body.id)
         try {
 
-            const apiRes = await fetch(`${API_URL}/api/account/getProfile/${req.body.id}`, {
+            const apiRes = await fetch(`${DJANGO_API_URL}/api/account/getProfile/${req.body.id}`, {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json',

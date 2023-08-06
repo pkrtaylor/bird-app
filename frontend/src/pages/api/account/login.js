@@ -7,7 +7,7 @@
 //secure - must have an https connection in order to send a cookie 
 
 import cookie from 'cookie'
-import { API_URL } from '../../../config'
+import { DJANGO_API_URL } from '../../../config'
 
 
 export default async (req, res) => {
@@ -22,7 +22,7 @@ export default async (req, res) => {
 
         try {
             //api request to django
-            const apiRes = await fetch(`${API_URL}/api/token/`, {
+            const apiRes = await fetch(`${DJANGO_API_URL}/api/token/`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

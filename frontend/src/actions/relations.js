@@ -20,7 +20,7 @@ export const relationsList = (username, isMainUser) => async dispatch =>{
 
     try {
         console.log("relations file 1")
-        const res = await fetch(`http://localhost:8000/api/relations/relationsList/${username}`, {
+        const res = await fetch(`${process.env.DJANGO_API_URL}/api/relations/relationsList/${username}`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -77,7 +77,7 @@ export const follow = (follower, followee) => async dispatch =>{
 
     try {
         
-        const res = await fetch(`http://localhost:3000/api/relations/follow`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/relations/follow`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -123,7 +123,7 @@ export const unfollow = (follower, followee) => async dispatch =>{
 
     try {
         
-        const res = await fetch(`http://localhost:3000/api/relations/unfollow`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/relations/unfollow`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -170,7 +170,7 @@ export const relation_status = (follower, followee) => async dispatch =>{
 
     try {
         
-        const res = await fetch(`http://localhost:3000/api/relations/relationStatus`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/relations/relationStatus`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',

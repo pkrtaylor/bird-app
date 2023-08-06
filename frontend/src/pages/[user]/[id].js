@@ -47,7 +47,7 @@ export default function TweetPage() {
 
                 try {
                     console.log(1)
-                    const res = await fetch(`http://localhost:8000/api/tweets/retrieveTweet/${router.query['id']}`, {
+                    const res = await fetch(`${process.env.DJANGO_API_URL}/api/tweets/retrieveTweet/${router.query['id']}`, {
                         method: 'GET'
                     })
                     console.log(router.query['id'])

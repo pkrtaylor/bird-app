@@ -1,5 +1,5 @@
 import cookie from 'cookie'
-import { API_URL } from '../../../config'
+import {DJANGO_API_URL} from '../../../config'
 // import FormData from 'form-data'
 
 
@@ -34,7 +34,7 @@ export default async (req, res) => {
         try {
 
 
-            const apiRes = await fetch(`${API_URL}/api/relations/relationStatus`, {
+            const apiRes = await fetch(`${DJANGO_API_URL}/api/relations/relationStatus`, {
                 method: 'POST',
                 headers: {
                     'Content-Type' : 'application/json',

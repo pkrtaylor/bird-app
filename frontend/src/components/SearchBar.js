@@ -6,7 +6,7 @@ const SearchBar = ({setResults, setInput, input}) => {
   
 
   const fetchData = (value) => {
-    fetch("http://localhost:8000/api/account/userList")
+    fetch(`${process.env.DJANGO_API_URL}/api/account/userList`)
     .then((response) => response.json())
     .then((json) => {
         // console.log(json.profiles)

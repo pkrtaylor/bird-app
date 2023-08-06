@@ -1,5 +1,5 @@
 import cookie from 'cookie'
-import { API_URL } from '../../../config'
+import { DJANGO_API_URL } from '../../../config'
 import formidable from 'formidable'
 import fs from 'fs'
 // import FormData from 'form-data'
@@ -165,7 +165,7 @@ export default async (req, res) => {
         try {
 
 
-            const apiRes = await fetch(`${API_URL}/api/account/profile`, {
+            const apiRes = await fetch(`${DJANGO_API_URL}/api/account/profile`, {
                 method: 'POST',
                 headers: {
                     // "Content-Type": `multipart/form-data; boundary=${body.getBoundary()}`,

@@ -29,7 +29,7 @@ const SearchSlide = ({setToggleSearchSlide, toggleSearchSlide}) => {
          </div>
          <div className="w-[95%] max-h-[80%] h-[80%] flex flex-col place-items-center">
                 <SearchBar input={input} setInput={setInput} setResults={setResults} results={results} />
-                <SearchResultsList results={results} setToggleSearchSlide={setToggleSearchSlide} toggleSearchSlide={toggleSearchSlide}/>
+                <SearchResultsList results={results} setResults={setResults} setInput={setInput} setToggleSearchSlide={setToggleSearchSlide} toggleSearchSlide={toggleSearchSlide}/>
 
          </div>
 

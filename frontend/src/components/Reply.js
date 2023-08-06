@@ -18,7 +18,7 @@ function Reply({ tweetId, text, media, username, createdAt }) {
 
         async function getProfile(){
           try {
-            const res = await fetch(`http://localhost:8000/api/account/getProfile/${username}`, {
+            const res = await fetch(`${process.env.DJANGO_API_URL}/api/account/getProfile/${username}`, {
                             method: 'GET'
                   })
             const data = await res.json()

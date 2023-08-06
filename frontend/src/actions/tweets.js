@@ -146,7 +146,7 @@ export const get_replies = (parent_id) => async dispatch => {
 
     try {
 
-        const res = await fetch('http://localhost:3000/api/tweets/retrieveReplies', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tweets/retrieveReplies`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

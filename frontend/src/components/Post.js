@@ -28,13 +28,13 @@ function Post({ id, text, media, username, createdAt, tweetPage }) {
   // const [tweetId, setTweetId] = useState(null)
   // const isModal = useSelector(state => state.tweets.isModal)
   const tweetData = useSelector(state => state.tweets.tweetData)
-  console.log(username)
+
 
   useEffect(()=>{
 
     async function getProfile(){
       try {
-        const res = await fetch(`http://localhost:8000/api/account/getProfile/${username}`, {
+        const res = await fetch(`${process.env.DJANGO_API_URL}/api/account/getProfile/${username}`, {
                         method: 'GET'
               })
         const data = await res.json()
@@ -47,7 +47,7 @@ function Post({ id, text, media, username, createdAt, tweetPage }) {
 
    
   },[username])
-console.log(profile)
+
   
 
   return (
