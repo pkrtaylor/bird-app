@@ -99,18 +99,18 @@ function ProfilePage() {
                     </div>
                     <div className="border-b border-gray-700 text-[#d9d9d9] h-[445px] flex flex-col relative">
                     {userOfProfileId ? (<>{/* Profile pic, smaller , im using userOfProfile as value for spinner */}
-                        <div className="border-[3px] border-pink-500 h-[145px] w-[145px] absolute top-[calc(40%-72.5px)] left-[16px]  ">
-                            <div className="border-[3px] border-blue-700 h-[100%] w-[100%] rounded-full bg-cover bg-center my-auto
+                        <div className="h-[145px] w-[145px] absolute top-[calc(40%-72.5px)] left-[16px]  ">
+                            <div className="border-[3px] border-black h-[100%] w-[100%] rounded-full bg-cover bg-center my-auto
                              z-10" style={{ backgroundImage: profile != undefined && `url(${profile?.pfp})`}} />
                         </div>
                         {/* this is where my background pic is, the larger one */}
-                        <div className="flex-[40%] border-[2px] border-red-700 ">
+                        <div className="flex-[40%]  ">
                             <div className=" bg-cover bg-center w-[100%] h-[100%] "
                             style={{ backgroundImage: `url(${profile?.bgp})`}} />
                         </div>
-                    <div className=" flex flex-col flex-[60%] border-[2px] border-yellow-700 pt-[12px] px-[16px]" >
+                    <div className=" flex flex-col flex-[60%] pt-[12px] px-[16px]" >
                             {/* the lower half of profile*/}
-                    <div className="h-[68px] flex border border-green-700 justify-end items-start">
+                    <div className="h-[68px] flex justify-end items-start">
                            {userId === userOfProfileId ? <div onClick={() => { dispatch(edit_modal_on()) }} className="text-[#d9d9d9] h-[36px] w-[114px] rounded-[20px] border border-[#536471] text-sm font-semibold mr-[50px] flex justify-center items-center cursor-pointer "
                            >Edit Profile</div> : 
                                 ( relationStatus?.[0]?.[0] ? 

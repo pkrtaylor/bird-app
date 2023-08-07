@@ -61,7 +61,7 @@ const EditProfile = ({display_name, pfp, bgp, location, bio, birthdate, username
 
         if (dispatch && dispatch !== null && dispatch !== undefined) {
             dispatch(send_profile(bgp2, pfp2, displayName, bio2, location2, birthdate2, userId, username ))
-            //console.log(media)
+            console.log(username)
           }
       
           
@@ -111,8 +111,8 @@ const EditProfile = ({display_name, pfp, bgp, location, bio, birthdate, username
                             </div>
 
                             <div className="w-full relative">
-                                <div className="absolute border-[3px] border-yellow-400 h-[112px] w-[112px] top-[137px] ml-[30px]">
-                                    <div className={`flex justify-center items-center border-[2px] border-blue-700 rounded-full w-full h-full bg-cover bg-center `}
+                                <div className="absolute  h-[112px] w-[112px] top-[137px] ml-[30px]">
+                                    <div className={`flex border-[3px] border-black justify-center items-center rounded-full w-full h-full bg-cover bg-center `}
                                     style={{ backgroundImage: selectedFile ? `url(${selectedFile})` : `url(${pfp2})`}}>
                                         <div onClick={() => filePickerRef.current.click()} className="flex justify-center items-center rounded-full h-[42px] w-[42px] bg-black cursor-pointer bg-opacity-[0.5] hover:bg-opacity-[0.4]">
                                             <TbCameraPlus className="text-white h-[22px] w-[22px] "/>
@@ -126,7 +126,7 @@ const EditProfile = ({display_name, pfp, bgp, location, bio, birthdate, username
                                     </div>
                                     
                                 </div>
-                                <div className="border-[3px] border-red-700 h-[193px]">
+                                <div className=" h-[193px]">
                                     <div className={`flex justify-center items-center bg-cover bg-center w-[100%] h-[100%] `}
                                     style={{ backgroundImage: bgpFile ? `url(${bgpFile})` : `url(${bgp2})`}}>
                                        <div onClick={()=> bgpRef.current.click()} className="flex justify-center items-center rounded-full h-[42px] w-[42px] bg-black mr-4 cursor-pointer bg-opacity-[0.5] hover:bg-opacity-[0.4]">
@@ -144,7 +144,7 @@ const EditProfile = ({display_name, pfp, bgp, location, bio, birthdate, username
                                        </div>
                                     </div>
                                 </div>
-                                <div className="h-[700px] border-[3px] border-green-300 flex flex-col items-center">
+                                <div className="h-[700px] flex flex-col items-center">
                                     <div className="relative flex h-[55px] w-[90%] mt-[70px] rounded-md ">
                                     <textarea
                                                 value={displayName}

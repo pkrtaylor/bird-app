@@ -80,25 +80,28 @@ export default async (req, res) => {
         
         console.log(1)
         const file = imageHandler(data.fields.pfp,data.files.pfp)
-        if(typeof(file) === String)
+        if(file instanceof Blob)
         {
-            body.append('pfp', file )
+            console.log(3)
+            body.append('pfp', file,  data.files.pfp?.newFilename)
+           
         }
         else{
-            body.append('pfp', file,  data.files.pfp?.newFilename)
+            body.append('pfp', file )
         }
-        console.log(2)
        
-        console.log(3)
+       
+       
 
         const file2 = imageHandler(data.fields.bgp,data.files.bgp)
         console.log(file2)
-        if(data.fields.bgp)
+        if(file2 instanceof Blob)
         {
-            body.append('bgp', file2 )
+            body.append('bgp', file2,  data.files.bgp?.newFilename)
+            
         }
         else{
-            body.append('bgp', file2,  data.files.bgp?.newFilename)
+            body.append('bgp', file2 )
         }
         console.log(5)
 
