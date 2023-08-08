@@ -48,7 +48,7 @@ const Register = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (dispatch && dispatch !== null && dispatch !== undefined) {
-      dispatch(register(email, first_name, last_name, username, password, re_password))
+      dispatch(register(email, first_name, last_name, username.toLowerCase(), password, re_password))
     }
   }
   if (typeof window !== 'undefined' && isAuthenticated) {

@@ -51,7 +51,7 @@ const Login = () => {
     e.preventDefault();
     console.log(1)
     if (dispatch && dispatch !== null && dispatch !== undefined) {
-      dispatch(login(username, password))
+      dispatch(login(username.toLowerCase(), password))
       console.log('onSubmit fucntion ran')
     }
 

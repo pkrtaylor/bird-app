@@ -23,7 +23,7 @@ const SearchBar = ({setResults, setInput, input}) => {
 
     const handleChange = (value) => {
         setInput(value);
-        fetchData(value);
+        fetchData(value.toLowerCase());
   }
   return (
     <div className="sticky top-0 py-1.5 bg-transparent z-50 w-11/12 xl:w-9/12">

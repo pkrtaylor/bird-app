@@ -8,6 +8,8 @@ import {
     GET_TWEET_ID,
     OPEN_MODAL,
     REMOVE_TWEET_LOADING,
+    SEND_REPLY_FAIL,
+    SEND_REPLY_SUCCESS,
     SEND_TWEET_FAIL,
     SEND_TWEET_SUCCESS,
     SET_TWEET_LOADING
@@ -81,22 +83,48 @@ export const send_tweet = (
 
         const data = await res.json()
 
-        if (res.status === 200) {
-            dispatch({
-                type: SEND_TWEET_SUCCESS,
-                payload: data
-            })
+        if(isReply !== "True")
+        {
+            if (res.status === 200) {
+                dispatch({
+                    type: SEND_TWEET_SUCCESS,
+                    payload: data
+                })
+            }
+            else {
+                dispatch({
+                    type: SEND_TWEET_FAIL
+                })
+            }
         }
-        else {
-            dispatch({
-                type: SEND_TWEET_FAIL
-            })
+        else{
+            if (res.status === 200) {
+                dispatch({
+                    type: SEND_REPLY_SUCCESS
+                })
+                dispatch(get_replies(parent))
+            }
+            else {
+                dispatch({
+                    type: SEND_REPLY_FAIL
+                })
+            }
+
         }
 
     } catch (error) {
+       if(isReply !== "True")
+       {
         dispatch({
             type: SEND_TWEET_FAIL
         })
+       }
+       else{
+        dispatch({
+            type: SEND_REPLY_FAIL
+        })
+
+       }
     }
 
     dispatch({

@@ -9,16 +9,19 @@ import { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { useDispatch } from "react-redux";
 import { get_tweet_id, modal_on } from "../actions/tweets";
+import { DJANGO_API_URL } from "../config";
+import { useRouter } from "next/router";
 
 function Reply({ tweetId, text, media, username, createdAt }) {
     const [profile, setProfile] = useState([])
     const dispatch = useDispatch()
+    const router = useRouter();
 
     useEffect(()=>{
 
         async function getProfile(){
           try {
-            const res = await fetch(`${process.env.DJANGO_API_URL}/api/account/getProfile/${username}`, {
+            const res = await fetch(`${DJANGO_API_URL}/api/account/getProfile/${username}`, {
                             method: 'GET'
                   })
             const data = await res.json()
@@ -32,7 +35,7 @@ function Reply({ tweetId, text, media, username, createdAt }) {
        
       },[username])
     return (
-        <div className="p-3 flex cursor-pointer border-b border-gray-700">
+        <div onClick={() => router.push(`/${username}/${tweetId}`)} className="p-3 flex cursor-pointer border-b border-gray-700">
             <img
                 src={profile[0]?.pfp}
                 alt=""
@@ -73,13 +76,9 @@ function Reply({ tweetId, text, media, username, createdAt }) {
                         'pfp': profile[0].pfp,
                         'displayName': profile[0].display_name,
                         'username':profile[0].user_id?.username
-
-                
-
               }));
-
-
-            }} className="icon group">
+              }} 
+              className="icon group">
                         <ChatIcon className="h-5 group-hover:text-[#1d9bf0]" />
                     </div>
 

@@ -17,6 +17,7 @@ import Modal from '../../components/Modal'
 import { get_user_profile } from '../../actions/profile'
 import SearchSlide from '../../components/SearchSlide'
 import LowerNav from '../../components/LowerNav'
+import { DJANGO_API_URL } from '../../config'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -37,6 +38,8 @@ export default function TweetPage() {
     
     const [toggleSearchSlide, setToggleSearchSlide] = useState(false)
     
+    const data = useSelector(state => state.tweets.homeTL?.data)
+    console.log(data)
     useEffect( () =>{
         setLoading(true)
         if(router.isReady){
@@ -47,7 +50,7 @@ export default function TweetPage() {
 
                 try {
                     console.log(1)
-                    const res = await fetch(`${process.env.DJANGO_API_URL}/api/tweets/retrieveTweet/${router.query['id']}`, {
+                    const res = await fetch(`${DJANGO_API_URL}/api/tweets/retrieveTweet/${router.query['id']}`, {
                         method: 'GET'
                     })
                     console.log(router.query['id'])
@@ -68,7 +71,7 @@ export default function TweetPage() {
             
             
         }
-    },[router.isReady])
+    },[router.isReady,router.query['id']])
     
     //async function getTweet(){
         //     try {
