@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import { useRouter } from "next/router";
-
+import defaultImage from '../images.json'
 const SearchResultsList = ({results, setResults, toggleSearchSlide ,setToggleSearchSlide, setInput}) => {
 
   const router = useRouter();  
@@ -20,7 +20,7 @@ const SearchResultsList = ({results, setResults, toggleSearchSlide ,setToggleSea
       >
         <div className=" flex-[30%] flex justify-center items-center">
           <div className="rounded-full h-[56px] w-[56px] bg-cover bg-center"
-          style={{ backgroundImage: `url(${result.pfp})`}} ></div>
+          style={{ backgroundImage: `url(${result.pfp ?  result?.pfp : defaultImage[0].url})`}} ></div>
         </div>
         <div className="flex-[70%] flex flex-col justify-center">
          <p className="text-sm font-bold ">{result.display_name}</p>

@@ -45,7 +45,7 @@ export default async (req, res) => {
                         'access', data.access, {
                         httpOnly: true,
                         secure: process.env.NODE_ENV !== 'development', //if secure is false we dont need https 
-                        maxAge: 60 * 30,
+                        maxAge: 60 * 60 * 24, //60sec 60 times is 1 hr * 24 is 1 day 
                         sameSite: 'strict',
                         path: '/api/'
                     }
@@ -54,7 +54,7 @@ export default async (req, res) => {
                         'refresh', data.refresh, {
                         httpOnly: true,
                         secure: process.env.NODE_ENV !== 'development',
-                        maxAge: 60 * 60 * 24,
+                        maxAge: 60 * 60 * 48, //60 secs 60 times is 1hr *48 makes 2 days
                         sameSite: 'strict',
                         path: '/api/'
                     }

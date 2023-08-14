@@ -10,6 +10,8 @@ from .models import User
 from .models import Profile
 from .serializers import UserSerializer, ProfileSerializer
 from django.db import Error
+
+
 import datetime
 
 
@@ -51,6 +53,7 @@ class RegisterView(APIView):
                             if User.objects.filter(username=username).exists():
                                 user_id = User.objects.filter(username=username).values('id')
                                 #create default profile, so profile page can be displayed
+                                
                                 default_profile = Profile.objects.create(user_id_id=user_id)
                                 default_profile.save()
                                 
@@ -197,12 +200,15 @@ class GetProfile(APIView):
 
     def get(self, request, **kwargs):
 
+        
+
         username = self.kwargs['id']
         user_id = User.objects.get(username=username)
         
         #filter returns a queryset i cant use that as an exact look up in the filter after try 
         
         try:
+            
             if Profile.objects.filter(user_id_id=user_id).exists():
 
                 profile = Profile.objects.filter(

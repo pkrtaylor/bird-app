@@ -22,6 +22,7 @@ import {BsSearch} from 'react-icons/bs'
 import Link from 'next/link'
 import SearchSlide from "./SearchSlide"
 import { logout } from "../actions/auth"
+import defaultImage from '../images.json'
 
 
 
@@ -81,7 +82,7 @@ const Feed = ({setToggleSideBar, toggleSideBar, toggleSearchSlide, setToggleSear
          <div>
             <div className="flex justify-between p-3">
                 <div className="rounded-full h-[40px] w-[40px] bg-cover bg-center cursor-pointer sm:hidden"
-              style={{ backgroundImage: `url(${mainProfile?.pfp})`}} ></div>
+              style={{ backgroundImage: mainProfile?.pfp ? `url(${mainProfile?.pfp})` : `url(${defaultImage[0].url})`}} ></div>
                 <div
                       className="hoverAnimation w-9 h-9 flex items-center justify-center xl:px-0"
                       onClick={() => {setToggleSideBar(!toggleSideBar)}}
@@ -132,14 +133,14 @@ const Feed = ({setToggleSideBar, toggleSideBar, toggleSearchSlide, setToggleSear
       <div className={`text-[#d9d9d9] flex items-center sm:justify-between py-2 px-3 ${!toggleSideBar && !toggleSearchSlide && "sticky"} top-0 z-[9] bg-black border-b border-gray-700`}>
         <h2 className="hidden sm:inline text-lg sm:text-xl font-bold">Home</h2>
         <div onClick={()=>{!toggleSearchSlide && setToggleSideBar(!toggleSideBar)}} className="rounded-full h-[56px] w-[56px] bg-cover bg-center cursor-pointer sm:hidden"
-          style={{ backgroundImage: `url(${mainProfile?.pfp})`}} ></div>
+          style={{ backgroundImage: mainProfile?.pfp ? `url(${mainProfile?.pfp})` : `url(${defaultImage[0].url})`}} ></div>
         <div className="hoverAnimation w-9 h-9 flex items-center justify-center
           xl:px-0 ml-auto" >
           <SparklesIcon className="text-white h-5" />
         </div>
 
       </div>
-      <Input pfp={mainProfile?.pfp}/>
+      <Input pfp={mainProfile?.pfp ? mainProfile?.pfp : defaultImage[0].url}/>
       <div className="min-h-[700px]" >
         {
           tweets.tweets?.map((tweet) => (

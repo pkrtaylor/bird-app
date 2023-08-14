@@ -18,6 +18,7 @@ import UnFollowModal from '../../components/UnFollowModal';
 import RightSidebar from '../../components/RightSidebar';
 import LowerNav from '../../components/LowerNav';
 import SearchSlide from '../../components/SearchSlide';
+import defaultImage from '../../images.json'
 
 function ProfilePage() {
     const dispatch = useDispatch();
@@ -36,7 +37,7 @@ function ProfilePage() {
 
     const [unFollowModal, setUnFollowModal] = useState(false)
     const [toggleSearchSlide, setToggleSearchSlide] = useState(false)
-    
+    console.log(defaultImage[0])
     
 
    
@@ -101,7 +102,7 @@ function ProfilePage() {
                     {userOfProfileId ? (<>{/* Profile pic, smaller , im using userOfProfile as value for spinner */}
                         <div className="h-[145px] w-[145px] absolute top-[calc(40%-72.5px)] left-[16px]  ">
                             <div className="border-[3px] border-black h-[100%] w-[100%] rounded-full bg-cover bg-center my-auto
-                             z-10" style={{ backgroundImage: profile != undefined && `url(${profile?.pfp})`}} />
+                             z-10" style={{ backgroundImage: profile !== undefined && profile?.pfp !== null ? `url(${profile?.pfp})` :`url(${defaultImage[0].url})` }} />
                         </div>
                         {/* this is where my background pic is, the larger one */}
                         <div className="flex-[40%]  ">
@@ -178,7 +179,6 @@ function ProfilePage() {
                     <LowerNav toggleSearchSlide={toggleSearchSlide} setToggleSearchSlide={setToggleSearchSlide}/>
                 </div>
                 <RightSidebar/>
-
             </main>
             {editModal && <EditProfile 
             bgp = {profile?.bgp}

@@ -12,6 +12,7 @@ import {
     XIcon,
 } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
+import defaultImage from '../images.json'
 
 const isReply = 'True'
 const Modal = ({pfp, username}) => {
@@ -81,7 +82,7 @@ const Modal = ({pfp, username}) => {
                                     <div className="text-[#6e767d] flex gap-x-3 relative">
                                         <span className="w-0.5 h-full z-[-1] absolute left-5 top-11 bg-gray-600" />
                                         <img
-                                            src={tweetData.pfp}
+                                            src={tweetData.pfp ? tweetData.pfp : defaultImage[0].url}
                                             alt=""
                                             className="h-11 w-11 rounded-full object-cover object-center"
                                         />
@@ -109,7 +110,7 @@ const Modal = ({pfp, username}) => {
 
                                     <div className="mt-7 flex space-x-3 w-full">
                                         <img
-                                            src={pfp}
+                                            src={pfp ? pfp : defaultImage[0].url}
                                             alt=""
                                             className="h-11 w-11 rounded-full object-cover object-center"
                                         />

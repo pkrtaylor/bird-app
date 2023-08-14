@@ -8,6 +8,7 @@ import { CalendarIcon, ChartBarIcon, EmojiHappyIcon, LocationMarkerIcon, Photogr
 import Picker from "@emoji-mart/react"
 import data from '@emoji-mart/data'
 import { send_tweet } from "../actions/tweets"
+import defaultImage from '../images.json'
 
 const Input = ({pfp}) => {
   //overflow-y-scroll allows us to scroll through the text we are typing
@@ -116,7 +117,7 @@ const Input = ({pfp}) => {
     overflow-y-scroll scrollbar-hide ${loading && "opacity-60"
       }`}>
       <img
-        src={pfp}
+        src={pfp ? pfp : defaultImage[0].url}
         alt=""
         className="h-11 w-11 rounded-full cursor-pointer object-cover object-center " />
       <div className="w-full divide-y divide-gray-700 ">

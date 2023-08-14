@@ -14,6 +14,7 @@ import { get_tweet_id, modal_on } from '../actions/tweets'
 import { get_user_profile } from '../actions/profile'
 import Moment from 'react-moment'
 import { DJANGO_API_URL } from '../config'
+import defaultImage from '../images.json'
 
 //in every post we need to request from the db a users pfp and username and displat_name 
 //because if a user changes in the future we cant go back and change all the tweets in the users cache 
@@ -58,7 +59,7 @@ function Post({ id, text, media, username, createdAt, tweetPage }) {
     >
       {!tweetPage && (
         <img
-          src={profile[0]?.pfp}
+          src={profile[0]?.pfp ? profile[0]?.pfp : defaultImage[0].url}
           alt=''
           className="h-11 w-11 rounded-full mr-4 object-cover object-center"
         />)}
